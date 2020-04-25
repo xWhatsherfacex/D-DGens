@@ -1,0 +1,255 @@
+package rnh.dnd.main;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
+public class Main extends JPanel {
+
+	private static JMenuBar menubar;
+	private static JMenu menuone, menutwo, menuthree;
+	static JMenuItem names, optiontwo;
+	static JMenuItem characternames, placenames, optionthree;
+
+	private static JPanel cardPanel;
+	private CardLayout cardLayout;
+
+	private final String ONE = "1";
+	private final String TWO = "2";
+	private final String THREE = "3";
+
+	private JLabel resultLabel;
+	private JButton genButton;
+	private JCheckBox commonfirst;
+	private JCheckBox elvishfirst;
+	private JCheckBox feminine;
+	private JCheckBox masculine;
+	private JCheckBox neutral;
+	private JCheckBox dwarvishfirst;
+	private JCheckBox orcishfirst;
+	private JCheckBox commonlast;
+	private JCheckBox titlelast;
+	private JCheckBox elvishlast;
+	private JCheckBox firstnameoption;
+	private JCheckBox lastnameoption;
+	private JCheckBox dwarvishlast;
+	private JCheckBox orcishlast;
+
+	private JPanel panelcharacternames;
+	private JPanel paneltwo;
+
+
+	public Main() {
+		//construct components
+		menubar = new JMenuBar();
+		menuone = new JMenu("Generators");
+		menutwo = new JMenu("Option 2");
+		menuthree = new JMenu("Option 3");
+		characternames = new JMenuItem("Character Names");
+		placenames = new JMenuItem("Place Names");
+		optionthree  = new JMenuItem("Option Three");
+
+		cardPanel = new JPanel();
+		cardLayout = new CardLayout();
+
+		panelcharacternames = new JPanel();
+		paneltwo = new JPanel();
+
+		resultLabel = new JLabel ("Result");
+		genButton = new JButton ("Generate!");
+
+		firstnameoption = new JCheckBox("First Name");
+		lastnameoption = new JCheckBox("Last Name");
+
+		feminine = new JCheckBox("Feminine");
+		masculine = new JCheckBox("Masculine");
+		neutral = new JCheckBox("Neutral");
+
+		commonfirst = new JCheckBox("Common");
+		elvishfirst = new JCheckBox("Elvish");
+		dwarvishfirst = new JCheckBox("Dwarvish");
+		orcishfirst = new JCheckBox("Orcish");
+
+		commonlast = new JCheckBox("Common");
+		titlelast = new JCheckBox("Title");
+		elvishlast = new JCheckBox("Elvish");
+		dwarvishlast = new JCheckBox("Dwarvish");
+		orcishlast = new JCheckBox("Orcish");
+
+		//set layout
+		setLayout(null);
+		resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		resultLabel.setVerticalAlignment(SwingConstants.CENTER);
+
+		//add components
+
+		menubar.add(menuone);
+		menubar.add(menutwo);
+		menubar.add(menuthree);
+
+		menuone.add(characternames); 
+		menuone.add(placenames);
+		menuone.add(optionthree);
+
+		cardPanel.add(panelcharacternames, "1");
+		cardPanel.add(paneltwo, "2");
+
+		////Add these to panelcharacternames?
+		add(resultLabel);
+		add(genButton);
+		add(firstnameoption);
+		add(lastnameoption);
+		add(feminine);
+		add(masculine);
+		add(neutral);
+		add(commonfirst);
+		add(elvishfirst);
+		add(dwarvishfirst);
+		add(orcishfirst);
+		add(commonlast);
+		add(titlelast);
+		add(elvishlast);
+		add(dwarvishlast);
+		add(orcishlast);
+
+		//set component bounds (only needed by Absolute Positioning)
+		resultLabel.setBounds(375, 490, 195, 45);
+		genButton.setBounds(375, 420, 195, 65);
+
+		firstnameoption.setBounds(65, 35, 100, 25);
+		lastnameoption.setBounds(380, 35, 100, 25);
+
+		feminine.setBounds (100, 65, 100, 25);
+		masculine.setBounds (100, 95, 100, 25);
+		neutral.setBounds (100, 125, 100, 25);
+
+		commonfirst.setBounds (165, 160, 100, 25);
+		elvishfirst.setBounds (165, 185, 100, 25);
+		dwarvishfirst.setBounds (165, 210, 100, 25);
+		orcishfirst.setBounds (165, 235, 100, 25);
+
+		commonlast.setBounds (420, 65, 100, 25);
+		titlelast.setBounds (420, 90, 100, 25);
+		elvishlast.setBounds (420, 115, 100, 25);
+		dwarvishlast.setBounds (420, 140, 100, 25);
+		orcishlast.setBounds (420, 165, 100, 25);
+
+
+		//DisableButtons
+		feminine.setEnabled(false);
+		masculine.setEnabled(false);
+		neutral.setEnabled(false);
+
+		commonfirst.setEnabled(false);
+		elvishfirst.setEnabled(false);
+		dwarvishfirst.setEnabled(false);
+		orcishfirst.setEnabled(false);
+
+		commonlast.setEnabled(false);
+		titlelast.setEnabled(false);
+		elvishlast.setEnabled(false);
+		dwarvishlast.setEnabled(false);
+		orcishlast.setEnabled(false);
+
+
+		//Add Functions
+	
+		characternames.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Switch to Character Name Generator
+				System.out.println("Switch Cards");
+			}});
+		
+		
+		
+		
+		firstnameoption.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (firstnameoption.isSelected()) {
+					feminine.setEnabled(true);
+					masculine.setEnabled(true);
+					neutral.setEnabled(true);
+				} else if (!firstnameoption.isSelected()) {
+					feminine.setEnabled(false);
+					feminine.setSelected(false);
+					masculine.setEnabled(false);
+					masculine.setSelected(false);
+					neutral.setEnabled(false);
+					neutral.setSelected(false);
+				}
+			}});
+
+		lastnameoption.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (lastnameoption.isSelected()) {
+					commonlast.setEnabled(true);
+					titlelast.setEnabled(true);
+					elvishlast.setEnabled(true);
+					dwarvishlast.setEnabled(true);
+					orcishlast.setEnabled(true);
+				} else if (!lastnameoption.isSelected()) {
+					commonlast.setEnabled(false);
+					commonlast.setSelected(false);
+					titlelast.setEnabled(false);
+					titlelast.setSelected(false);
+					elvishlast.setEnabled(false);
+					elvishlast.setSelected(false);
+					dwarvishlast.setEnabled(false);
+					dwarvishlast.setSelected(false);
+					orcishlast.setEnabled(false);
+					orcishlast.setSelected(false);
+				}
+			}
+		});
+
+		commonfirst.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}});
+		
+		
+		
+		//Button to generate a result
+		genButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!firstnameoption.isSelected() && !lastnameoption.isSelected()) {
+					resultLabel.setText("Please select an option!");				
+				} else if (firstnameoption.isSelected() && !lastnameoption.isSelected()) {
+					//Generate First Name Only
+					resultLabel.setText("Generate First Name");				
+				} else if (!firstnameoption.isSelected() && lastnameoption.isSelected()) {
+					//Generate Last Name Only
+					resultLabel.setText("Generate Last Name");				
+				} else if (firstnameoption.isSelected() && lastnameoption.isSelected()) {
+					//Generate Both Names
+					resultLabel.setText("Generate First and Last Name");				
+				}
+			}});
+
+
+
+	}
+
+	public static void main (String[] args) {
+		JFrame frame = new JFrame ("D&D Gens");
+		frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+		frame.setSize(800,600);
+		frame.setResizable(false);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		int w = frame.getSize().width;
+		int h = frame.getSize().height;
+		int x = (dim.width-w)/2;
+		int y = (dim.height-h)/2;
+		frame.setLocation(x, y);
+		frame.getContentPane().add(new Main());
+		frame.getContentPane().add(cardPanel, BorderLayout.NORTH); 
+		frame.setJMenuBar(menubar);
+		frame.setVisible (true);
+	}
+}
