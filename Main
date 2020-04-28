@@ -13,11 +13,10 @@ public class Main extends JPanel {
 	static JMenuItem characternames, placenames, optionthree;
 
 	private static JPanel cardPanel;
-	private CardLayout cardLayout;
-
+	private static CardLayout cardLayout;
+	
 	private final String ONE = "1";
 	private final String TWO = "2";
-	private final String THREE = "3";
 
 	private JLabel resultLabel;
 	private JButton genButton;
@@ -38,6 +37,8 @@ public class Main extends JPanel {
 
 	private JPanel panelcharacternames;
 	private JPanel paneltwo;
+	
+	private SpringLayout layout;
 
 
 	public Main() {
@@ -52,6 +53,8 @@ public class Main extends JPanel {
 
 		cardPanel = new JPanel();
 		cardLayout = new CardLayout();
+		layout = new SpringLayout();
+		
 
 		panelcharacternames = new JPanel();
 		paneltwo = new JPanel();
@@ -81,7 +84,9 @@ public class Main extends JPanel {
 		setLayout(null);
 		resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		resultLabel.setVerticalAlignment(SwingConstants.CENTER);
-
+		cardPanel.setLayout(cardLayout);
+		panelcharacternames.setLayout(null);		
+		
 		//add components
 
 		menubar.add(menuone);
@@ -95,24 +100,31 @@ public class Main extends JPanel {
 		cardPanel.add(panelcharacternames, "1");
 		cardPanel.add(paneltwo, "2");
 
-		////Add these to panelcharacternames?
-		add(resultLabel);
-		add(genButton);
-		add(firstnameoption);
-		add(lastnameoption);
-		add(feminine);
-		add(masculine);
-		add(neutral);
-		add(commonfirst);
-		add(elvishfirst);
-		add(dwarvishfirst);
-		add(orcishfirst);
-		add(commonlast);
-		add(titlelast);
-		add(elvishlast);
-		add(dwarvishlast);
-		add(orcishlast);
+		panelcharacternames.add(resultLabel);
+		panelcharacternames.add(genButton);
+		panelcharacternames.add(firstnameoption);
+		panelcharacternames.add(lastnameoption);
+		panelcharacternames.add(feminine);
+		panelcharacternames.add(masculine);
+		panelcharacternames.add(neutral);
+		panelcharacternames.add(commonfirst);
+		panelcharacternames.add(elvishfirst);
+		panelcharacternames.add(dwarvishfirst);
+		panelcharacternames.add(orcishfirst);
+		panelcharacternames.add(commonlast);
+		panelcharacternames.add(titlelast);
+		panelcharacternames.add(elvishlast);
+		panelcharacternames.add(dwarvishlast);
+		panelcharacternames.add(orcishlast);
 
+		
+		
+		//Set component bounds
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, panelcharacternames, 5, SpringLayout.EAST, resultLabel);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, panelcharacternames, 5, SpringLayout.EAST, genButton);
+
+		
+		
 		//set component bounds (only needed by Absolute Positioning)
 		resultLabel.setBounds(375, 490, 195, 45);
 		genButton.setBounds(375, 420, 195, 65);
@@ -154,17 +166,25 @@ public class Main extends JPanel {
 
 
 		//Add Functions
-	
+
 		characternames.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Switch to Character Name Generator
 				System.out.println("Switch Cards");
+				swapCardCharacterNames();
 			}});
-		
-		
-		
-		
+
+		placenames.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Switch to Character Name Generator
+				System.out.println("Switch Cards");
+				swapCardTest();
+			}});
+
+
+
 		firstnameoption.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -211,9 +231,9 @@ public class Main extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			}});
-		
-		
-		
+
+
+
 		//Button to generate a result
 		genButton.addActionListener(new ActionListener(){
 			@Override
@@ -236,6 +256,17 @@ public class Main extends JPanel {
 
 	}
 
+	public void swapCardCharacterNames() {
+		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		cl.show(cardPanel, ONE);
+	}
+	
+	public void swapCardTest() {
+		CardLayout cl = (CardLayout) cardPanel.getLayout();
+		cl.show(cardPanel, TWO);
+	}
+
+
 	public static void main (String[] args) {
 		JFrame frame = new JFrame ("D&D Gens");
 		frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
@@ -248,7 +279,8 @@ public class Main extends JPanel {
 		int y = (dim.height-h)/2;
 		frame.setLocation(x, y);
 		frame.getContentPane().add(new Main());
-		frame.getContentPane().add(cardPanel, BorderLayout.NORTH); 
+		frame.getContentPane().add(cardPanel);
+		frame.getContentPane().setLayout(cardLayout);
 		frame.setJMenuBar(menubar);
 		frame.setVisible (true);
 	}
